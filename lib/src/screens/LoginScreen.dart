@@ -1,3 +1,4 @@
+import 'package:bloc_pattern/src/Widgets/CustomForm.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/Widgets/User_Icon.dart';
@@ -13,6 +14,17 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          createCompleteBackGround(),
+          CustomForm()
+        ],
+      )
+    );
+  }
+}
+
+Widget createCompleteBackGround(){
+  return Stack(
+        children: [
           Background(),
           Positioned(child: CustomCircle(), top: 200, left: 35,),
           Positioned(child: CustomCircle(), top: 55, right: 35,),
@@ -20,8 +32,7 @@ class LoginScreen extends StatelessWidget {
           Positioned(child: CustomCircle(), top: 100, right: 85,),
           UserIcon(),
         ],
-
-      )
     );
-  }
 }
+
+
