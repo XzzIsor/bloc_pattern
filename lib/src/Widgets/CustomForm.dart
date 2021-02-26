@@ -32,7 +32,7 @@ class CustomForm extends StatelessWidget {
               children:[ 
                 Text('Login'),
                 SizedBox(height: 30.0),
-                CustomTextField(icon: Icons.email_outlined, label: 'Correo', obscureText: false),
+                CustomTextField(icon: Icons.email_outlined, label: 'Correo', obscureText: false, emailType: true),
                 SizedBox(height: 30.0),
                 CustomTextField(icon: Icons.lock_clock,  label: 'Contraseña', obscureText: true),
                 SizedBox(height: 30.0),
