@@ -1,9 +1,10 @@
-import 'package:bloc_pattern/src/Widgets/CustomButton.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bloc_pattern/src/Widgets/CustomTextField.dart';
+import 'CustomForm.dart';
 
-class CustomForm extends StatelessWidget {
+class FormContainer extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -28,17 +29,7 @@ class CustomForm extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(vertical: 50.0),
             margin: EdgeInsets.symmetric(vertical: 30.0),    
-            child: Column(
-              children:[ 
-                Text('Login'),
-                SizedBox(height: 30.0),
-                CustomTextField(icon: Icons.email_outlined, label: 'Correo', obscureText: false, emailType: true),
-                SizedBox(height: 30.0),
-                CustomTextField(icon: Icons.lock_clock,  label: 'Contraseña', obscureText: true),
-                SizedBox(height: 30.0),
-                CustomButton(onTap: (){}, text: "Ingresar",)
-              ],
-            ),
+            child: CustomForm()
           ),
         ],
       ),
