@@ -1,4 +1,5 @@
-import 'package:bloc_pattern/src/Widgets/CustomForm.dart';
+
+import 'package:bloc_pattern/src/Widgets/Form/FormContainer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/Widgets/User_Icon.dart';
@@ -15,7 +16,7 @@ class LoginScreen extends StatelessWidget {
       body: Stack(
         children: [
           createCompleteBackGround(),
-          CustomForm()
+          FormContainer(),
         ],
       )
     );
