@@ -6,8 +6,10 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final bool emailType;
   final Function onChange; 
+  final String errorText;
   final String counterText;
-  CustomTextField({this.icon, this.label, this.obscureText, this.emailType, this.onChange, this.counterText});
+  
+  CustomTextField({this.icon, this.label, this.obscureText, this.emailType, this.onChange, this.counterText, this.errorText});
 
   
   @override
@@ -18,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
+        
         onChanged: onChange,
         keyboardType: keyboardType,
         obscureText: obscureText,
@@ -25,6 +28,7 @@ class CustomTextField extends StatelessWidget {
           counterText: counterText,
           icon: Icon(icon, color: Colors.deepPurple),
           labelText: label,
+          errorText: errorText,
         ),
       ),
     );

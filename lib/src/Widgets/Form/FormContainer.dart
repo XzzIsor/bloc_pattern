@@ -4,7 +4,6 @@ import 'CustomForm.dart';
 
 class FormContainer extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
