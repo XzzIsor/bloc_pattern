@@ -26,6 +26,7 @@ class _CustomFormState extends State<CustomForm> {
         passwordStreamBuilder(bloc),
         SizedBox(height: 30.0),
         customButton(bloc),
+        logInWithGoogle(),
       ],
     );
   }
@@ -37,9 +38,16 @@ Widget customButton(LoginBlock bloc) => StreamBuilder(
         return CustomButton(
           onTap: snapshot.hasData ? () {} : null,
           text: "Ingresar",
+          image: "assets/Google.jpg",
         );
       },
     );
+
+Widget logInWithGoogle() => CustomButton(
+
+      onTap: (){},
+      text: "Ingresar con Google",
+);
 
 Widget emailStreamBuilder(LoginBlock bloc) => StreamBuilder(
       stream: bloc.emailStream,
