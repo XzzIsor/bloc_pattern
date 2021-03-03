@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:rxdart/rxdart.dart';
 import 'Validator.dart';
 
@@ -21,4 +22,5 @@ class LoginBlock with Validator {
     _emailController.close();
     _passwordController.close();
   }
+
 }

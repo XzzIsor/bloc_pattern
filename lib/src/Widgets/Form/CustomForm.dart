@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/blocks/LoginBlock.dart';
+import 'package:bloc_pattern/src/blocks/SignInWithGoogle.dart';
 import 'package:bloc_pattern/src/blocks/LoginProvider.dart';
 
 import '../CustomButton.dart';
@@ -38,16 +39,18 @@ Widget customButton(LoginBlock bloc) => StreamBuilder(
         return CustomButton(
           onTap: snapshot.hasData ? () {} : null,
           text: "Ingresar",
-          image: "assets/Google.jpg",
         );
       },
     );
 
 Widget logInWithGoogle() => CustomButton(
-
-      onTap: (){},
+      onTap: () {
+        SignInWithGoogle signIn = new SignInWithGoogle();
+        signIn.signInWithGoogle(); 
+      },
       text: "Ingresar con Google",
-);
+      image: "assets/Google.jpg",
+    );
 
 Widget emailStreamBuilder(LoginBlock bloc) => StreamBuilder(
       stream: bloc.emailStream,
