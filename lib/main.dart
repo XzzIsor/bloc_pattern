@@ -6,7 +6,6 @@ import 'package:bloc_pattern/src/screens/LoginScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
   runApp(MyApp());
 }
 
