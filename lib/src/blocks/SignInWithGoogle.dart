@@ -5,16 +5,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 import "../blocks/LoginBlock.dart";
 
 class SignInWithGoogle {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseAuth _auth;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final LoginBlock loginBlock = LoginBlock();
 
   Future<String> signInWithGoogle() async {
-    
     await Firebase.initializeApp();
+    _auth = FirebaseAuth.instance;
 
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    
 
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
@@ -27,12 +26,13 @@ class SignInWithGoogle {
     final UserCredential authResult =
         await _auth.signInWithCredential(credential);
     final User user = authResult.user;
+
+    loginBlock.changeEmail(user.email);
+      loginBlock.changePassword("Entro con google");
     if (user != null) {
       assert(!user.isAnonymous);
       assert(await user.getIdToken() != null);
-      final User currentUser = _auth.currentUser;
-      loginBlock.changeEmail(user.email);
-      loginBlock.changePassword("Entro con google");
+      final User currentUser = _auth.currentUser;      
       assert(user.uid == currentUser.uid);
       print('signInWithGoogle succeeded: $user');
       return '$user';
