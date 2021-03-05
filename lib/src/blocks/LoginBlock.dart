@@ -4,8 +4,13 @@ import 'package:rxdart/rxdart.dart';
 import 'Validator.dart';
 
 class LoginBlock with Validator {
+
+
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
+
+  String get email => _emailController.value;
+  String get password => _passwordController.value;
 
   Stream<String> get emailStream =>
       _emailController.stream.transform(validateEmail);
@@ -22,5 +27,4 @@ class LoginBlock with Validator {
     _emailController.close();
     _passwordController.close();
   }
-
 }

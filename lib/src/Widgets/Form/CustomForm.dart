@@ -26,27 +26,31 @@ class _CustomFormState extends State<CustomForm> {
         SizedBox(height: 30.0),
         passwordStreamBuilder(bloc),
         SizedBox(height: 30.0),
-        customButton(bloc),
+        customButton(bloc, context),
         logInWithGoogle(),
       ],
     );
   }
 }
 
-Widget customButton(LoginBlock bloc) => StreamBuilder(
+Widget customButton(LoginBlock bloc, BuildContext context) => StreamBuilder(
       stream: bloc.isValid,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return CustomButton(
-          onTap: snapshot.hasData ? () {} : null,
+          onTap: snapshot.hasData ? () => login(context) : null,
           text: "Ingresar",
         );
       },
     );
 
+void login(BuildContext context) {
+  Navigator.pushReplacementNamed(context, "/"); 
+}
+
 Widget logInWithGoogle() => CustomButton(
       onTap: () {
         SignInWithGoogle signIn = new SignInWithGoogle();
-        signIn.signInWithGoogle(); 
+        signIn.signInWithGoogle();
       },
       text: "Ingresar con Google",
       image: "assets/Google.jpg",
