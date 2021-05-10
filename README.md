@@ -1,6 +1,6 @@
 # bloc_pattern
 
-A bloc pattern example in flutter
+A bloc pattern example in flutter.
 
 ## Getting Started
 
