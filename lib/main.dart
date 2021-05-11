@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/screens/HomeScreen.dart';
+import 'package:bloc_pattern/src/screens/ProductScreen.dart';
 import 'package:bloc_pattern/src/blocks/LoginProvider.dart';
 import 'package:bloc_pattern/src/screens/LoginScreen.dart';
 
@@ -15,11 +16,11 @@ class MyApp extends StatelessWidget {
     return LoginProvider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'juan es gei',
         initialRoute: 'login',
         routes: {
           '/': (BuildContext context) => HomeScreen(),
-          'login': (BuildContext context) => LoginScreen()
+          'login': (BuildContext context) => LoginScreen(),
+          'product' : (BuildContext context) => ProductScreen()
         },
         theme: ThemeData(primaryColor: Colors.deepPurple),
       ),

@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton.icon(
+    return ElevatedButton.icon(
       icon: image != null ? Container(
               width: 55.0,
               height: 55.0,
@@ -19,9 +19,11 @@ class CustomButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: image==null?  80 : 0, vertical: 15),
             child: Text(text),
       ),
-      shape: RoundedRectangleBorder(
+      style: ButtonStyle(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
-      ),
+      ),) 
       elevation: 0,
       color: Colors.deepPurple,
       textColor: Colors.white,
