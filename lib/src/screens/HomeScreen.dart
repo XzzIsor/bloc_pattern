@@ -1,4 +1,4 @@
-import 'package:bloc_pattern/src/blocks/LoginProvider.dart';
+import 'package:bloc_pattern/src/blocks/Providers/LoginProvider.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

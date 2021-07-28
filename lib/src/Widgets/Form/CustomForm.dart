@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/blocks/LoginBlock.dart';
 import 'package:bloc_pattern/src/blocks/SignInWithGoogle.dart';
-import 'package:bloc_pattern/src/blocks/LoginProvider.dart';
+import 'package:bloc_pattern/src/blocks/Providers/LoginProvider.dart';
 
 import '../CustomButton.dart';
 import '../CustomTextField.dart';
@@ -37,14 +37,14 @@ Widget customButton(LoginBlock bloc, BuildContext context) => StreamBuilder(
       stream: bloc.isValid,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return CustomButton(
-          onTap: snapshot.hasData ? () => login(context) : null,
-          text: "Ingresar",
-        );
+            onTap: snapshot.hasData ? () => login(context) : null,
+            text: snapshot.hasData ? "Ingresar" : "Espere");
       },
     );
 
 void login(BuildContext context) {
-  Navigator.pushReplacementNamed(context, "/"); 
+  FocusScope.of(context).unfocus();
+  Navigator.pushReplacementNamed(context, "/");
 }
 
 Widget logInWithGoogle() => CustomButton(

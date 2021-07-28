@@ -9,25 +9,28 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      icon: image != null ? Container(
+      icon: image != null
+          ? Container(
               width: 55.0,
               height: 55.0,
               decoration: BoxDecoration(
-                  image:
-                      DecorationImage(image: AssetImage(image), fit: BoxFit.contain))) : Container(),
+                  image: DecorationImage(
+                      image: AssetImage(image), fit: BoxFit.contain)))
+          : Container(),
       label: Container(
-            padding: EdgeInsets.symmetric(horizontal: image==null?  80 : 0, vertical: 15),
-            child: Text(text),
+        padding: EdgeInsets.symmetric(
+            horizontal: image == null ? 80 : 0, vertical: 15),
+        child: Text(text),
       ),
-      style: ButtonStyle(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.deepPurple,
+        onPrimary: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),) 
-      elevation: 0,
-      color: Colors.deepPurple,
-      textColor: Colors.white,
-      onPressed: onTap,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+      ),
+      onPressed: onTap
     );
   }
 }

@@ -4,6 +4,7 @@ import 'CustomForm.dart';
 
 class FormContainer extends StatelessWidget {
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -12,7 +13,7 @@ class FormContainer extends StatelessWidget {
         children: [
           SafeArea(
             child: Container(
-              height: 180.0,
+              height: 180,
             ),
           ),
           Container(
@@ -23,6 +24,7 @@ class FormContainer extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black26,
                   blurRadius: 5.0,
+                  offset: Offset(5,5)
                 )
               ]
             ),
@@ -30,6 +32,8 @@ class FormContainer extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 30.0),    
             child: CustomForm()
           ),
+          SizedBox(height: 50),
+          Text('Crear Nueva Cuenta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         ],
       ),
     );

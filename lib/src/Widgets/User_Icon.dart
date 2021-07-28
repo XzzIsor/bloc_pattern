@@ -10,7 +10,7 @@ class UserIcon extends StatelessWidget {
         children: [
           Icon(Icons.person_add_alt_1_sharp, color: Colors.white, size: 50.0,),
           SizedBox(height: 10, width: double.infinity),
-          Text("Juan es gei" ,style: TextStyle(fontSize: 25, color: Colors.white),)
+          Text("Usuario" ,style: TextStyle(fontSize: 25, color: Colors.white),)
         ],
       ),
     );

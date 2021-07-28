@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/screens/HomeScreen.dart';
 import 'package:bloc_pattern/src/screens/ProductScreen.dart';
-import 'package:bloc_pattern/src/blocks/LoginProvider.dart';
+import 'package:bloc_pattern/src/blocks/Providers/LoginProvider.dart';
 import 'package:bloc_pattern/src/screens/LoginScreen.dart';
 
 void main() async {
