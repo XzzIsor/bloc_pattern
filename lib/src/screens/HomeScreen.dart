@@ -1,5 +1,6 @@
-import 'package:bloc_pattern/src/blocks/Providers/LoginProvider.dart';
 import 'package:flutter/material.dart';
+
+import 'package:bloc_pattern/src/Widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -7,24 +8,18 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = LoginProvider.of(context);
-
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("email: = " +  bloc.email),
-          Divider(),
-          Text("Contraseña: =  " + bloc.password),
-        ],
-
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Producto'),
+        ),
+        body: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (BuildContext context, int index) => GestureDetector(
+            child: ProductCard(),
+            onTap:() => Navigator.pushNamed(context, 'product'),
+          )
+        ),
+        floatingActionButton: CustomFloatingButton(),
+      );
   }
 }

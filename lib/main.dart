@@ -16,13 +16,20 @@ class MyApp extends StatelessWidget {
     return LoginProvider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: 'login',
+        initialRoute: 'product',
         routes: {
           '/': (BuildContext context) => HomeScreen(),
           'login': (BuildContext context) => LoginScreen(),
           'product' : (BuildContext context) => ProductScreen()
         },
-        theme: ThemeData(primaryColor: Colors.deepPurple),
+        theme: ThemeData(
+        primaryColor: Colors.deepPurple, 
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.deepPurple, 
+          elevation: 0
+          ),
+        ),
+        
       ),
     );
   }

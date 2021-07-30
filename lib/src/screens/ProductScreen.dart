@@ -1,3 +1,5 @@
+import 'package:bloc_pattern/src/Widgets/Card/ProductCard.dart';
+import 'package:bloc_pattern/src/Widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -5,17 +7,17 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Producto'),
-          actions: [
-           IconButton(
-           icon: Icon(Icons.photo_filter),
-           onPressed: () {})
-          ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            
+            ProductImage()
+          ]
         ),
+
       ),
+
     );
   }
 }
