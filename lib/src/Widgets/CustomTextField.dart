@@ -5,32 +5,50 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final IconData icon;
   final bool emailType;
-  final Function onChange; 
-  final String errorText;
-  final String counterText;
-  
-  CustomTextField({this.icon, this.label, this.obscureText, this.emailType, this.onChange, this.counterText, this.errorText});
+  final Function onChange;
+  final String? errorText;
+  final String? counterText;
+  final Color color;
 
-  
+  CustomTextField(
+      {required this.icon,
+      required this.label,
+      required this.obscureText,
+      required this.emailType,
+      required this.onChange,
+      this.counterText,
+       this.errorText, 
+      required this.color});
+
   @override
   Widget build(BuildContext context) {
-
-    final keyboardType = emailType? TextInputType.emailAddress : TextInputType.text;
+    final keyboardType =
+        emailType ? TextInputType.emailAddress : TextInputType.text;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextField(
-        
-        onChanged: onChange,
+      child: TextFormField(
+        onChanged: (string) => onChange,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        decoration: InputDecoration(
-          counterText: counterText,
-          icon: Icon(icon, color: Colors.deepPurple),
-          labelText: label,
-          errorText: errorText,
+        decoration: inputDeco(
+          counterText: counterText!, 
+          icon: icon, 
+          label: label, 
+          errorText: errorText!,
+          color: color
         ),
       ),
+    );
+  }
+
+  InputDecoration inputDeco(
+      {String? counterText, required IconData icon, required String label, String? errorText, required Color color}) {
+    return InputDecoration(
+      counterText: counterText,
+      icon: Icon(icon, color: color),
+      labelText: label,
+      errorText: errorText,
     );
   }
 }

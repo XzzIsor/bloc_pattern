@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'CustomForm.dart';
+
 
 class FormContainer extends StatelessWidget {
 
@@ -30,7 +30,7 @@ class FormContainer extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(vertical: 50.0),
             margin: EdgeInsets.symmetric(vertical: 30.0),    
-            child: CustomForm()
+            child: Container(),
           ),
           SizedBox(height: 50),
           Text('Crear Nueva Cuenta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

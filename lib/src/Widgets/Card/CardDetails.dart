@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CardDetails extends StatelessWidget {
-  const CardDetails({Key key, @required this.borderRadius, @required this.width, @required this.height}) : super(key: key);
+  const CardDetails({Key? key, required this.borderRadius, required this.width, required this.height, required this.name}) : super(key: key);
   final double borderRadius;
+  final String name;
   final double width;
   final double height;
 
@@ -28,7 +29,7 @@ class CardDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Disco Sólido H',
+                name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

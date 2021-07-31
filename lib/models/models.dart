@@ -1,0 +1,1 @@
+export 'package:bloc_pattern/models/product.dart';

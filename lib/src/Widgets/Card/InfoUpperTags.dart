@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InfoUpperTags extends StatelessWidget {
-  const InfoUpperTags({Key key,@required this.text,@required this.width, @required this.height, @required this.color}) : super(key: key);
+  const InfoUpperTags({Key? key,required this.text,required this.width, required this.height, required this.color}) : super(key: key);
   final String text;
   final double width;
   final double height;

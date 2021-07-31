@@ -7,7 +7,6 @@ import 'package:bloc_pattern/src/Widgets/Background.dart';
 import 'package:bloc_pattern/src/Widgets/CustomCircle.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

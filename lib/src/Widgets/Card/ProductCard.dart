@@ -1,14 +1,16 @@
-import 'package:bloc_pattern/src/Widgets/Card/CardBackground.dart';
+import 'package:bloc_pattern/models/models.dart';
 import 'package:bloc_pattern/src/Widgets/Card/CardDetails.dart';
+import 'package:bloc_pattern/src/Widgets/Card/CardBackground.dart';
 import 'package:bloc_pattern/src/Widgets/Card/PriceTag.dart';
 import 'package:bloc_pattern/src/Widgets/Card/ProductNotAvalible.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key key}) : super(key: key);
+  const ProductCard({Key? key, required this.product}) : super(key: key);
   static const double _height = 300;
   static const double _borderRadius = 25;
   static const double _width = 400;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -33,29 +35,41 @@ class ProductCard extends StatelessWidget {
           ]);
 
   Stack _content() => Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            CardBackground(
-              height: _height,
-              borderRadius: _borderRadius,
-            ),
-            CardDetails(
-              borderRadius: _borderRadius,
-              width: _width*0.7,
-              height: _height*0.23,
-            ),
-            Positioned(
-              child: PriceTag(borderRadius: _borderRadius, height: _height*0.17, width: _width*0.25), 
+        alignment: Alignment.bottomLeft,
+        children: [
+          CardBackground(
+            image: product.picture,
+            height: _height,
+            borderRadius: _borderRadius,
+          ),
+          CardDetails(
+            name: product.name,
+            borderRadius: _borderRadius,
+            width: _width * 0.7,
+            height: _height * 0.23,
+          ),
+          Positioned(
+              child: PriceTag(
+                  price: product.price,
+                  borderRadius: _borderRadius,
+                  height: _height * 0.17,
+                  width: _width * 0.25),
               top: 0,
-              right: 0
-            ),
+              right: 0),
 
-            //TODO: Mostrar de manera condicional 
-             Positioned(
-              child: ProductNotAvalible(borderRadius: _borderRadius, height: _height*0.17, width: _width*0.30),
-              top: 0,
-              left: 0
-            )  
-          ],
-        );
+          _showNotAvalible()
+        ],
+      );
+
+  Widget _showNotAvalible() {
+    return !product.available
+        ? Positioned(
+            child: ProductNotAvalible(
+                borderRadius: _borderRadius,
+                height: _height * 0.17,
+                width: _width * 0.30),
+            top: 0,
+            left: 0)
+        : Container();
+  }
 }

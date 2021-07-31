@@ -2,7 +2,7 @@ import 'package:bloc_pattern/src/Widgets/Card/InfoUpperTags.dart';
 import 'package:flutter/material.dart';
 
 class ProductNotAvalible extends StatelessWidget {
-  const ProductNotAvalible({Key key, @required this.borderRadius, @required this.width, @required this.height}) : super(key: key);
+  const ProductNotAvalible({Key? key, required this.borderRadius, required this.width, required this.height}) : super(key: key);
   final double borderRadius;
   final double width;
   final double height;
