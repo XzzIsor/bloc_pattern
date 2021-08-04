@@ -1,10 +1,12 @@
 
+import 'package:bloc_pattern/Providers/LoginProvider.dart';
 import 'package:bloc_pattern/src/Widgets/Form/FormContainer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_pattern/src/Widgets/User_Icon.dart';
 import 'package:bloc_pattern/src/Widgets/Background.dart';
 import 'package:bloc_pattern/src/Widgets/CustomCircle.dart';
+
 
 class LoginScreen extends StatelessWidget {
 
@@ -16,6 +18,7 @@ class LoginScreen extends StatelessWidget {
         children: [
           createCompleteBackGround(),
           FormContainer(),
+          
         ],
       )
     );

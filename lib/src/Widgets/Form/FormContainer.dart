@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:bloc_pattern/Providers/LoginProvider.dart';
+import 'package:bloc_pattern/src/Widgets/Form/CustomForm.dart';
 
 
 class FormContainer extends StatelessWidget {
@@ -30,7 +33,10 @@ class FormContainer extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(vertical: 50.0),
             margin: EdgeInsets.symmetric(vertical: 30.0),    
-            child: Container(),
+            child: ChangeNotifierProvider(
+            create: (_) => LoginProvider(), 
+            child: CustomForm()
+            ),
           ),
           SizedBox(height: 50),
           Text('Crear Nueva Cuenta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

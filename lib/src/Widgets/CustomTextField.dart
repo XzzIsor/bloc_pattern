@@ -1,54 +1,88 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  final String label;
-  final bool obscureText;
-  final IconData icon;
-  final bool emailType;
-  final Function onChange;
-  final String? errorText;
-  final String? counterText;
-  final Color color;
-
+class CustomTextField extends StatefulWidget {
   CustomTextField(
-      {required this.icon,
+      {Key? key,
       required this.label,
-      required this.obscureText,
-      required this.emailType,
+      required this.icon,
+      required this.hintText,
       required this.onChange,
-      this.counterText,
-       this.errorText, 
-      required this.color});
+      required this.emailType,
+      required this.obscureText})
+      : super(key: key);
+
+  final String label;
+  final IconData icon;
+  final String hintText;
+  final Function(String) onChange;
+  final bool emailType;
+  final bool obscureText;
+
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  FocusNode? _focusNode;
+
+  @override
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _focusNode!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final keyboardType =
-        emailType ? TextInputType.emailAddress : TextInputType.text;
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
-      child: TextFormField(
-        onChanged: (string) => onChange,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        decoration: inputDeco(
-          counterText: counterText!, 
-          icon: icon, 
-          label: label, 
-          errorText: errorText!,
-          color: color
-        ),
+    return TextFormField(
+      obscureText: widget.obscureText,
+      onTap: _requestFocus,
+      focusNode: _focusNode,
+      onChanged: widget.onChange,
+      keyboardType:
+          widget.emailType ? TextInputType.emailAddress : TextInputType.text,
+      decoration: InputDecoration(
+        icon: Icon(widget.icon, color: Colors.deepPurple),
+        labelText: widget.label,
+        labelStyle: TextStyle(
+            color: _focusNode!.hasFocus ? Colors.deepPurple : Colors.grey),
+        fillColor: Colors.deepPurple,
+        hintText: widget.hintText,
+        enabledBorder: _borderStyle(),
+        focusedBorder: _borderStyle(),
       ),
+      validator: (value) {
+        String pattern =
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+        RegExp regExp = new RegExp(pattern);
+        String? respEmail =
+            regExp.hasMatch(value ?? '') ? null : 'No es un correo electrónico';
+        String? respPass;
+
+        if (value != null && value.length >= 6) {
+          respPass = null;
+        } else {
+          respPass = 'La contraseña no cuenta con los carácteres necesarios';
+        }
+
+        return widget.emailType ? respEmail : respPass;
+      },
     );
   }
 
-  InputDecoration inputDeco(
-      {String? counterText, required IconData icon, required String label, String? errorText, required Color color}) {
-    return InputDecoration(
-      counterText: counterText,
-      icon: Icon(icon, color: color),
-      labelText: label,
-      errorText: errorText,
-    );
+  void _requestFocus() {
+    setState(() {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
+  }
+
+  UnderlineInputBorder _borderStyle() {
+    return UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepPurple, width: 1.5));
   }
 }

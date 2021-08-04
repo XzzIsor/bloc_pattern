@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final Function onTap;
+  final VoidCallback? onTap;
   const CustomButton({required this.text, required this.onTap});
 
   @override
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
       ),
-      onPressed: () => onTap
+      onPressed: onTap
     );
   }
 }
