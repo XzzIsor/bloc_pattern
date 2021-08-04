@@ -1,9 +1,8 @@
-import 'package:bloc_pattern/Providers/LoginProvider.dart';
-import 'package:bloc_pattern/services/services.dart';
 import 'package:flutter/material.dart';
-
-import 'src/screens/screens.dart';
 import 'package:provider/provider.dart';
+
+import 'package:bloc_pattern/services/services.dart';
+import 'src/screens/screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

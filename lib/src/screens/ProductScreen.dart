@@ -1,4 +1,5 @@
 
+import 'package:bloc_pattern/Providers/ProductFormProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_pattern/services/services.dart';
 import 'package:bloc_pattern/src/Widgets/widgets.dart';
@@ -9,6 +10,23 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context);
 
+    return ChangeNotifierProvider(
+    create: (_) => ProductFormProvider(product: productService.selectedProduct),
+    child: _ProductScreenBody(productService: productService));
+
+  }
+}
+
+class _ProductScreenBody extends StatelessWidget {
+  const _ProductScreenBody({
+    Key? key,
+    required this.productService,
+  }) : super(key: key);
+
+  final ProductService productService;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [

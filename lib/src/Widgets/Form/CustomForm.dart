@@ -19,6 +19,7 @@ class CustomForm extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             CustomTextField(
+              isLogin: true,
               label: 'E-mail',
               icon: Icons.email_sharp,
               hintText: 'example123@gmail.com',
@@ -28,6 +29,7 @@ class CustomForm extends StatelessWidget {
             ),
             SizedBox(height: 20),
             CustomTextField(
+              isLogin: true,
               label: 'Contraseña',
               icon: Icons.email_sharp,
               hintText: 'Shhh',
