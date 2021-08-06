@@ -13,13 +13,16 @@ class ProductImage extends StatelessWidget {
         width: double.infinity,
         height: 400,
         decoration: _productImageDeco(),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(45), topRight: Radius.circular(45)),
-          child: FadeInImage(
-            image: NetworkImage(image != null? image! :'https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg'),
-            placeholder: AssetImage('assets/progress-loading.gif'),
-            fit: BoxFit.cover,
+        child: Opacity(
+          opacity: 0.9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(45), topRight: Radius.circular(45)),
+            child: FadeInImage(
+              image: NetworkImage(image != null? image! :'https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg'),
+              placeholder: AssetImage('assets/progress-loading.gif'),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
@@ -27,7 +30,7 @@ class ProductImage extends StatelessWidget {
   }
 
   BoxDecoration _productImageDeco() => BoxDecoration(
-          color: Colors.white,
+          color: Colors.black,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(45), topRight: Radius.circular(45)),
           boxShadow: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   CustomTextField(
@@ -11,7 +12,8 @@ class CustomTextField extends StatefulWidget {
       required this.obscureText,
       this.initialValue,
       required this.isLogin,
-      this.isPrice})
+      this.isPrice,
+      this.inputFormatters})
       : super(key: key);
 
   final String label;
@@ -23,6 +25,7 @@ class CustomTextField extends StatefulWidget {
   final String? initialValue;
   final bool isLogin;
   final bool? isPrice;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -87,6 +90,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           )
         : TextFormField(
             initialValue: widget.initialValue,
+            inputFormatters: widget.inputFormatters,
             obscureText: widget.obscureText,
             onTap: _requestFocus,
             focusNode: _focusNode,
@@ -104,13 +108,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintText: widget.hintText,
               enabledBorder: _borderStyle(),
               focusedBorder: _borderStyle(),
+              focusedErrorBorder: _borderStyle()
             ),
             validator: (value) {
-              if (!widget.isPrice!) {
-                if (value == null) {
-                  return 'El nombre es obligatorio';
-                }
+              String? resp = '';
+
+              if (value == null || value.length < 1) {
+                resp = 'El nombre es obligatorio';
               }
+              return widget.isPrice! ? null : resp;
             },
           );
   }

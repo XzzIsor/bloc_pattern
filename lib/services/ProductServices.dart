@@ -8,6 +8,7 @@ class ProductService extends ChangeNotifier {
   final String _baseURL = 'products-app-1d196-default-rtdb.firebaseio.com';
   final List<Product> products = [];
   bool isLoading = true;
+  bool isSaving = false;
   late Product selectedProduct;
 
   ProductService() {
@@ -33,5 +34,35 @@ class ProductService extends ChangeNotifier {
     notifyListeners();
 
     return this.products;
+  }
+
+  Future savedOrCreatedProduct(Product product) async {
+    print('hola1');
+    isSaving = true;
+    notifyListeners();
+
+    if (product.id == null) {
+      print('hola2');
+      //Crear
+    } else {
+      //Actualizar
+      print('hola3');
+      await updateProduct(product);
+    }
+
+    isSaving = false;
+    notifyListeners();
+  }
+
+  Future<String> updateProduct(Product product) async {
+    final url = Uri.https(_baseURL, 'products/${product.id}.json');
+    final resp = await http.put(url, body: product.toJson());
+    final decodedData = resp.body;
+
+    print('Hola' + decodedData);
+
+    //Actualizar lista de productos
+
+    return product.id!;
   }
 }
