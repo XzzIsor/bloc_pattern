@@ -89,6 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             },
           )
         : TextFormField(
+          autocorrect: false,
             initialValue: widget.initialValue,
             inputFormatters: widget.inputFormatters,
             obscureText: widget.obscureText,
@@ -110,7 +111,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusedBorder: _borderStyle(),
               focusedErrorBorder: _borderStyle()
             ),
-            validator: (value) {
+             validator: (value) {
               String? resp = '';
 
               if (value == null || value.length < 1) {

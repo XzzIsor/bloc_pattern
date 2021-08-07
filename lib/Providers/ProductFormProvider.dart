@@ -6,7 +6,7 @@ class ProductFormProvider extends ChangeNotifier {
 
   Product product;
 
-  ProductFormProvider({required this.product});
+  ProductFormProvider(this.product);
 
   updateAvailability(bool value) {
     print(value);
