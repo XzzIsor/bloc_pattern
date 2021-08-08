@@ -10,6 +10,39 @@ class CustomForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final login = Provider.of<LoginProvider>(context);
+
+    CustomTextField _emailInput = CustomTextField(
+        label: 'E-mail',
+        icon: Icons.email_sharp,
+        hintText: 'example123@gmail.com',
+        onChange: (value) => login.email = value,
+        emailType: true,
+        obscureText: false,
+        validator: (value) {
+          String pattern =
+              r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+          RegExp regExp = new RegExp(pattern);
+          String? respEmail = regExp.hasMatch(value ?? '')
+              ? null
+              : 'No es un correo electrónico';
+          return respEmail;
+        });
+
+    CustomTextField _passwordInput = CustomTextField(
+      label: 'Contraseña',
+      icon: Icons.email_sharp,
+      hintText: 'Shhh',
+      onChange: (value) => login.password = value,
+      emailType: false,
+      obscureText: true,
+      validator: (value) {
+        String? resp = value != null && value.length >= 6
+            ? null
+            : 'La contraseña no cuenta con los carácteres necesarios';
+        return resp;
+      },
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Form(
@@ -18,37 +51,23 @@ class CustomForm extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 20),
-            CustomTextField(
-              isLogin: true,
-              label: 'E-mail',
-              icon: Icons.email_sharp,
-              hintText: 'example123@gmail.com',
-              onChange: (value) => login.email = value,
-              emailType: true,
-              obscureText: false,
-            ),
+            _emailInput,
             SizedBox(height: 20),
-            CustomTextField(
-              isLogin: true,
-              label: 'Contraseña',
-              icon: Icons.email_sharp,
-              hintText: 'Shhh',
-              onChange: (value) => login.password = value,
-              emailType: false,
-              obscureText: true,
-            ),
+            _passwordInput,
             SizedBox(height: 50),
             CustomButton(
                 text: login.isLoading ? 'Espere...' : 'Ingresar',
-                onTap: login.isLoading ? null : () async {
-                    if (!login.isValidForm()) return;
-                    login.isLoading = true;
+                onTap: login.isLoading
+                    ? null
+                    : () async {
+                        if (!login.isValidForm()) return;
+                        login.isLoading = true;
 
-                    //TODO: Validar usuario
-                    await Future.delayed(Duration(seconds: 2));
-                    login.isLoading = false;
-                    Navigator.pushReplacementNamed(context, '/');
-                }),
+                        //TODO: Validar usuario
+                        await Future.delayed(Duration(seconds: 2));
+                        login.isLoading = false;
+                        Navigator.pushReplacementNamed(context, '/');
+                      }),
           ],
         ),
       ),

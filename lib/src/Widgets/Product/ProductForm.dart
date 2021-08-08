@@ -9,6 +9,39 @@ class ProductForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductFormProvider>(context);
     final product = productProvider.product;
+
+    CustomTextField _productNameInput = CustomTextField(
+        initialValue: product.name,
+        label: 'Nombre del producto',
+        icon: Icons.production_quantity_limits_outlined,
+        hintText: 'Producto',
+        onChange: (value) => product.name = value,
+        emailType: false,
+        obscureText: false,
+        validator: (value) {
+          if (value == null || value.length < 1) 
+            return 'El nombre es obligatorio';
+        });
+
+    CustomTextField _productPriceInput = CustomTextField(
+      initialValue: '${product.price}',
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+      ],
+      label: 'Precio del Producto',
+      icon: Icons.money,
+      hintText: '\$10.0',
+      onChange: (value) {
+        if (double.tryParse(value) == null) {
+          product.price = 0;
+        } else {
+          product.price = double.parse(value);
+        }
+      },
+      emailType: false,
+      obscureText: false,
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -20,37 +53,9 @@ class ProductForm extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 10),
-                CustomTextField(
-                    isPrice: false,
-                    initialValue: product.name,
-                    label: 'Nombre del producto',
-                    icon: Icons.production_quantity_limits_outlined,
-                    hintText: 'Producto',
-                    onChange: (value) => product.name = value,
-                    emailType: false,
-                    obscureText: false,
-                    isLogin: false),
+                _productNameInput,
                 SizedBox(height: 30),
-                CustomTextField(
-                    isPrice: true,
-                    initialValue: '${product.price}',
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                          RegExp(r'^(\d+)?\.?\d{0,2}'))
-                    ],
-                    label: 'Precio del Producto',
-                    icon: Icons.money,
-                    hintText: '\$10.0',
-                    onChange: (value) {
-                      if (double.tryParse(value) == null) {
-                        product.price = 0;
-                      } else {
-                        product.price = double.parse(value);
-                      }
-                    },
-                    emailType: false,
-                    obscureText: false,
-                    isLogin: false),
+                _productPriceInput,
                 SizedBox(height: 30),
                 SwitchListTile(
                     title: Text('Disponible'),

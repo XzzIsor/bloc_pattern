@@ -11,20 +11,17 @@ class CustomTextField extends StatefulWidget {
       required this.emailType,
       required this.obscureText,
       this.initialValue,
-      required this.isLogin,
-      this.isPrice,
-      this.inputFormatters})
+      this.inputFormatters, this.validator})
       : super(key: key);
 
   final String label;
   final IconData icon;
   final String hintText;
   final Function(String) onChange;
+  final String? Function(String?)? validator;
   final bool emailType;
   final bool obscureText;
   final String? initialValue;
-  final bool isLogin;
-  final bool? isPrice;
   final List<TextInputFormatter>? inputFormatters;
 
   @override
@@ -48,51 +45,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.isLogin
-        ? TextFormField(
+    return TextFormField(
             initialValue: widget.initialValue,
             obscureText: widget.obscureText,
-            onTap: _requestFocus,
-            focusNode: _focusNode,
-            onChanged: widget.onChange,
-            keyboardType: widget.emailType
-                ? TextInputType.emailAddress
-                : TextInputType.text,
-            decoration: InputDecoration(
-              icon: Icon(widget.icon, color: Colors.deepPurple),
-              labelText: widget.label,
-              labelStyle: TextStyle(
-                  color:
-                      _focusNode!.hasFocus ? Colors.deepPurple : Colors.grey),
-              fillColor: Colors.deepPurple,
-              hintText: widget.hintText,
-              enabledBorder: _borderStyle(),
-              focusedBorder: _borderStyle(),
-            ),
-            validator: (value) {
-              String pattern =
-                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-              RegExp regExp = new RegExp(pattern);
-              String? respEmail = regExp.hasMatch(value ?? '')
-                  ? null
-                  : 'No es un correo electrónico';
-              String? respPass;
-
-              if (value != null && value.length >= 6) {
-                respPass = null;
-              } else {
-                respPass =
-                    'La contraseña no cuenta con los carácteres necesarios';
-              }
-
-              return widget.emailType ? respEmail : respPass;
-            },
-          )
-        : TextFormField(
-          autocorrect: false,
-            initialValue: widget.initialValue,
             inputFormatters: widget.inputFormatters,
-            obscureText: widget.obscureText,
             onTap: _requestFocus,
             focusNode: _focusNode,
             onChanged: widget.onChange,
@@ -109,16 +65,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               hintText: widget.hintText,
               enabledBorder: _borderStyle(),
               focusedBorder: _borderStyle(),
-              focusedErrorBorder: _borderStyle()
             ),
-             validator: (value) {
-              String? resp = '';
-
-              if (value == null || value.length < 1) {
-                resp = 'El nombre es obligatorio';
-              }
-              return widget.isPrice! ? null : resp;
-            },
+            validator: widget.validator
           );
   }
 

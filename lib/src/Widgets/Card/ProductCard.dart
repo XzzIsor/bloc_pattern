@@ -43,6 +43,7 @@ class ProductCard extends StatelessWidget {
             borderRadius: _borderRadius,
           ),
           CardDetails(
+            id: product.id!,
             name: product.name,
             borderRadius: _borderRadius,
             width: _width * 0.7,

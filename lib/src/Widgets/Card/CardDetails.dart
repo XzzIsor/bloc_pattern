@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CardDetails extends StatelessWidget {
-  const CardDetails({Key? key, required this.borderRadius, required this.width, required this.height, required this.name}) : super(key: key);
+  const CardDetails({Key? key, required this.borderRadius, required this.width, required this.height, required this.name, required this.id}) : super(key: key);
   final double borderRadius;
   final String name;
   final double width;
   final double height;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class CardDetails extends StatelessWidget {
                   ),
                   overflow: TextOverflow.ellipsis,
               ),
-              Text('Descripción',
+              Text(id,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,

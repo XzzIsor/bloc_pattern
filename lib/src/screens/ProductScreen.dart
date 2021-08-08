@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:bloc_pattern/services/services.dart';
 import 'package:bloc_pattern/src/Widgets/widgets.dart';
@@ -15,8 +16,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductService>(context);
     return ChangeNotifierProvider(
-        create: (_) =>
-            ProductFormProvider(productService.selectedProduct),
+        create: (_) => ProductFormProvider(productService.selectedProduct),
         child: _ProductScreenBody(productService: productService));
   }
 }
@@ -53,11 +53,19 @@ class _ProductScreenBody extends StatelessWidget {
                   top: 60,
                   right: 20,
                   child: IconButton(
-                      onPressed: () {
-                        //TODO: Cámara o Galería
-                      },
+                      onPressed: () => _imagePicker(ImageSource.camera),
                       icon: Icon(
                         Icons.camera_alt_sharp,
+                        color: Colors.white,
+                        size: 30,
+                      ))),
+                Positioned(
+                  top: 120,
+                  right: 20,
+                  child: IconButton(
+                      onPressed: () => _imagePicker(ImageSource.gallery),
+                      icon: Icon(
+                        Icons.library_add,
                         color: Colors.white,
                         size: 30,
                       ))),
@@ -71,9 +79,13 @@ class _ProductScreenBody extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save_alt),
-        onPressed: () async {
+        child: productService.isSaving ? CircularProgressIndicator(color: Colors.white) : Icon(Icons.save_alt_sharp),
+        onPressed: productService.isSaving ? null : () async {
           if (!productProvider.isValidForm()) return;
+
+          final String? imgURL = await productService.uploadImage();
+
+          if (imgURL != null) productProvider.product.picture = imgURL;
 
           await productService.savedOrCreatedProduct(productProvider.product);
         },
@@ -81,7 +93,18 @@ class _ProductScreenBody extends StatelessWidget {
     );
   }
 
+  void _imagePicker(ImageSource imageSource) async {
+
+    final imagePicker = ImagePicker();
+      final XFile? pickedFile = await imagePicker.pickImage(
+      source: imageSource,
+      imageQuality: 100,
+      );
+      if (pickedFile == null) {
+        return;
+      }
+      productService.updateProductImage(pickedFile.path);
+
+  }
+
 }
-
-
- 

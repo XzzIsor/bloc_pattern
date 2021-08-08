@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
@@ -18,14 +20,33 @@ class ProductImage extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(45), topRight: Radius.circular(45)),
-            child: FadeInImage(
-              image: NetworkImage(image != null? image! :'https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg'),
-              placeholder: AssetImage('assets/progress-loading.gif'),
-              fit: BoxFit.cover,
-            ),
+            child: getImage(image),
           ),
         ),
       ),
+    );
+  }
+
+  Widget getImage(String? picturePath) {
+    if (picturePath == null) {
+      return FadeInImage(
+          image: NetworkImage('https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg'),
+          placeholder: AssetImage('assets/progress-loading.gif'),
+          fit: BoxFit.cover);
+    }
+
+    if (picturePath.startsWith('http')) {
+      return FadeInImage(
+          image: NetworkImage(image != null
+              ? image!
+              : 'https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg'),
+          placeholder: AssetImage('assets/progress-loading.gif'),
+          fit: BoxFit.cover);
+    }
+
+    return Image.file(
+      File(picturePath),
+      fit: BoxFit.cover,
     );
   }
 
