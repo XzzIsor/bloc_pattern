@@ -13,7 +13,10 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => ProductService())],
+        providers: [
+          ChangeNotifierProvider(create: (_) => ProductService()),
+          ChangeNotifierProvider(create: (_) => AuthService()),
+        ],
         child: MyApp());
   }
 }
@@ -23,12 +26,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: 'login',
       routes: {
+        'check' :  (BuildContext context) => CheckAuthScreen(),
+
         '/': (BuildContext context) => HomeScreen(),
+        'product': (BuildContext context) => ProductScreen(),
+
+        'singup' : (BuildContext context) => SingUpScreen(),
         'login': (BuildContext context) => LoginScreen(),
-        'product': (BuildContext context) => ProductScreen()
       },
+      scaffoldMessengerKey: NotifyService.messageKey,
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
         floatingActionButtonTheme: FloatingActionButtonThemeData(

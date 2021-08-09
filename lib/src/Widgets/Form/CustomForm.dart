@@ -1,3 +1,4 @@
+import 'package:bloc_pattern/services/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,8 @@ import 'package:bloc_pattern/Providers/LoginProvider.dart';
 import 'package:bloc_pattern/src/Widgets/widgets.dart';
 
 class CustomForm extends StatelessWidget {
-  const CustomForm({Key? key}) : super(key: key);
+  const CustomForm({Key? key, required this.buttonMessage}) : super(key: key);
+  final String buttonMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class CustomForm extends StatelessWidget {
       validator: (value) {
         String? resp = value != null && value.length >= 6
             ? null
-            : 'La contraseña no cuenta con los carácteres necesarios';
+            : 'La contraseña es muy corta';
         return resp;
       },
     );
@@ -56,21 +58,50 @@ class CustomForm extends StatelessWidget {
             _passwordInput,
             SizedBox(height: 50),
             CustomButton(
-                text: login.isLoading ? 'Espere...' : 'Ingresar',
-                onTap: login.isLoading
-                    ? null
-                    : () async {
-                        if (!login.isValidForm()) return;
-                        login.isLoading = true;
-
-                        //TODO: Validar usuario
-                        await Future.delayed(Duration(seconds: 2));
-                        login.isLoading = false;
-                        Navigator.pushReplacementNamed(context, '/');
-                      }),
+              text: login.isLoading ? 'Espere...' : buttonMessage,
+              onTap: login.isLoading
+                  ? null
+                  : () async {
+                      buttonMessage == 'Crear'
+                          ? await _createUser(context, login)
+                          : await _loginUser(context, login);
+                    },
+            )
           ],
         ),
       ),
     );
+  }
+
+  _createUser(BuildContext context, LoginProvider login) async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    if (!login.isValidForm()) return;
+
+    login.isLoading = true;
+    final String? errorMessage =
+        await authService.createUser(login.email, login.password);
+    if (errorMessage == null) {
+      Navigator.pushReplacementNamed(context, '/');
+    } else {
+      NotifyService.showSnackBar('El correo ya existe');
+      login.isLoading = false;
+    }
+  }
+
+  _loginUser(BuildContext context, LoginProvider login) async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    if (!login.isValidForm()) return;
+
+    login.isLoading = true;
+    final String? errorMessage =
+        await authService.loginUser(login.email, login.password);
+    if (errorMessage == null) {
+      Navigator.pushReplacementNamed(context, '/');
+    } else {
+      NotifyService.showSnackBar('El usuario o contraseña no son válidos');
+      login.isLoading = false;
+    }
   }
 }

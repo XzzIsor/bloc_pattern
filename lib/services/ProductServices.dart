@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+
 import 'dart:io';
 import 'dart:convert';
 
@@ -13,6 +15,8 @@ class ProductService extends ChangeNotifier {
   late Product selectedProduct;
   File? pictureFile;
 
+  final storage = FlutterSecureStorage();
+
   ProductService() {
     this.loadProducts();
   }
@@ -21,10 +25,13 @@ class ProductService extends ChangeNotifier {
     this.isLoading = true;
     notifyListeners();
 
-    final url = Uri.https(_baseURL, 'products.json');
+    final url = Uri.https(_baseURL, 'products.json',
+        {'auth': await storage.read(key: 'idToken') ?? ''});
     final resp = await http.get(url);
 
     final Map<String, dynamic> productsMap = json.decode(resp.body);
+
+    if (productsMap['error'] != null) return [];
 
     productsMap.forEach((key, value) {
       final tempPro = Product.fromMap(value);
@@ -53,7 +60,8 @@ class ProductService extends ChangeNotifier {
   }
 
   Future<String> _updateProduct(Product product) async {
-    final url = Uri.https(_baseURL, 'products/${product.id}.json');
+    final url = Uri.https(_baseURL, 'products/${product.id}.json',
+        {'auth': await storage.read(key: 'idToken') ?? ''});
     final resp = await http.put(url, body: product.toJson());
     final decodedData = resp.body;
 
@@ -64,7 +72,8 @@ class ProductService extends ChangeNotifier {
   }
 
   Future<String> _createProduct(Product product) async {
-    final url = Uri.https(_baseURL, 'products.json');
+    final url = Uri.https(_baseURL, 'products.json',
+        {'auth': await storage.read(key: 'idToken') ?? ''});
     final resp = await http.post(url, body: product.toJson());
     final decodedData = json.decode(resp.body);
     product.id = decodedData['name'];
@@ -86,7 +95,8 @@ class ProductService extends ChangeNotifier {
 
     notifyListeners();
 
-    final url = Uri.parse('https://api.cloudinary.com/v1_1/xssisorimg/image/upload?upload_preset=products_app');
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/xssisorimg/image/upload?upload_preset=products_app');
 
     final imageRequest = http.MultipartRequest('POST', url);
 

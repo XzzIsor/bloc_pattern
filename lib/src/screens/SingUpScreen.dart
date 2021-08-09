@@ -1,5 +1,3 @@
-
-import 'package:bloc_pattern/Providers/LoginProvider.dart';
 import 'package:bloc_pattern/src/Widgets/Form/FormContainer.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +6,7 @@ import 'package:bloc_pattern/src/Widgets/Background.dart';
 import 'package:bloc_pattern/src/Widgets/CustomCircle.dart';
 
 
-class LoginScreen extends StatelessWidget {
+class SingUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +14,11 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          createCompleteBackGround(),
+          createCompleteBackGroundSing(),
           FormContainer(
-            buttonMessage: 'Ingresar',
-            bottomMessage: 'Crear Nueva Cuenta',
-            route: 'singup',
+            buttonMessage: 'Crear',
+            bottomMessage: '¿Tienes una cuenta?',
+            route: 'login',
           ),
           
         ],
@@ -29,7 +27,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-Widget createCompleteBackGround(){
+Widget createCompleteBackGroundSing(){
   return Stack(
         children: [
           Background(),
@@ -38,7 +36,7 @@ Widget createCompleteBackGround(){
           Positioned(child: CustomCircle(), top: 80, left: -50),
           Positioned(child: CustomCircle(), top: 100, right: 85,),
           UserIcon(
-            message: 'Iniciar Sesión',
+            message: 'Crear Cuenta',
           ),
         ],
     );
